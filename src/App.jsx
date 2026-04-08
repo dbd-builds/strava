@@ -49,7 +49,7 @@ const INIT_PRIORITIES = [
   { id:2,num:"02",color:"#F59E0B",label:"Programs Created",title:"Volume of programs, tools & initiatives created and shipped",status:"on-track",progress:0,metric:{label:"Programs Shipped",current:0,target:10,unit:""},milestones:[{id:"2a",text:"Q1 program slate defined & launched",done:false,q:"Q1"},{id:"2b",text:"Q2 programs shipped",done:false,q:"Q2"},{id:"2c",text:"Q3 programs shipped",done:false,q:"Q3"},{id:"2d",text:"Q4 programs + complete catalog",done:false,q:"Q4"}],notes:"" },
   { id:3,num:"03",color:"#10B981",label:"Participant Enjoyment",title:"Average 4/5 participant enjoyment rating across all programs",status:"on-track",progress:0,metric:{label:"Avg Rating",current:0,target:4,unit:"/5"},milestones:[{id:"3a",text:"Establish feedback system across all programs",done:false,q:"Q1"},{id:"3b",text:"Q2 ratings review + program adjustments",done:false,q:"Q2"},{id:"3c",text:"Q3 refinements based on participant data",done:false,q:"Q3"},{id:"3d",text:"Year-end rating summary + report",done:false,q:"Q4"}],notes:"" },
   { id:4,num:"04",color:"#8B5CF6",label:"Accountability Framework",title:"Build behavioral accountability model using ReCulturing by Melissa Daimler",status:"on-track",progress:0,metric:{label:"Framework Completion",current:0,target:100,unit:"%"},milestones:[{id:"4a",text:"Synthesize ReCulturing + apply to Strava context",done:false,q:"Q1"},{id:"4b",text:"Co-design accountability model with Maurice",done:false,q:"Q2"},{id:"4c",text:"Pilot framework with select teams",done:false,q:"Q3"},{id:"4d",text:"Full rollout + adoption measurement",done:false,q:"Q4"}],notes:"" },
-  { id:5,num:"05",color:"#06B6D4",label:"Global Events",title:"Own Global Events end-to-end \u2014 take this fully off Maurice's plate",status:"on-track",progress:0,metric:{label:"Events Delivered",current:0,target:4,unit:""},milestones:[{id:"5a",text:"Transfer global events ownership from Maurice",done:false,q:"Q1"},{id:"5b",text:"Plan & deliver Q2 global event",done:false,q:"Q2"},{id:"5c",text:"Plan & deliver Q3 global event",done:false,q:"Q3"},{id:"5d",text:"Q4 event + year-end retrospective",done:false,q:"Q4"}],notes:"" },
+  { id:5,num:"05",color:"#06B6D4",label:"Global Events",title:"Own Global Events end-to-end — take this fully off Maurice's plate",status:"on-track",progress:0,metric:{label:"Events Delivered",current:0,target:4,unit:""},milestones:[{id:"5a",text:"Transfer global events ownership from Maurice",done:false,q:"Q1"},{id:"5b",text:"Plan & deliver Q2 global event",done:false,q:"Q2"},{id:"5c",text:"Plan & deliver Q3 global event",done:false,q:"Q3"},{id:"5d",text:"Q4 event + year-end retrospective",done:false,q:"Q4"}],notes:"" },
 ];
 
 const INIT_11 = { wins:[], blocks:[], weekPriorities:[] };
@@ -101,7 +101,7 @@ function MetricGauge({metric,color}){
       </div>
       <div>
         <div style={{fontSize:22,fontWeight:700,color:"white",fontFamily:"'Fraunces',serif",lineHeight:1}}>{metric.current}{metric.unit}</div>
-        <div style={{fontSize:11,color:"rgba(255,255,255,.38)",marginTop:3}}>{metric.label} \u00b7 target {metric.target}{metric.unit}</div>
+        <div style={{fontSize:11,color:"rgba(255,255,255,.38)",marginTop:3}}>{metric.label} · target {metric.target}{metric.unit}</div>
       </div>
     </div>
   );
@@ -128,18 +128,18 @@ function PriorityCard({p,onToggle,onEdit}){
         <div style={{marginBottom:18}}>
           <div style={{display:"flex",justifyContent:"space-between",marginBottom:7}}>
             <span style={{fontSize:11,color:"rgba(255,255,255,.35)"}}>Progress</span>
-            <span style={{fontSize:12,color:p.color,fontWeight:700}}>{p.progress}% \u00b7 {done}/{total} milestones</span>
+            <span style={{fontSize:12,color:p.color,fontWeight:700}}>{p.progress}% · {done}/{total} milestones</span>
           </div>
           <ProgressBar progress={p.progress} color={p.color}/>
         </div>
         <MetricGauge metric={p.metric} color={p.color}/>
         <button onClick={()=>setExpanded(x=>!x)} style={{width:"100%",marginTop:16,padding:"8px 12px",background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.07)",borderRadius:8,color:"rgba(255,255,255,.45)",cursor:"pointer",fontSize:12,display:"flex",justifyContent:"space-between",alignItems:"center",transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,.08)"} onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,.04)"}>
           <span>Milestones ({done}/{total} done)</span>
-          <span style={{transition:"transform .25s",transform:expanded?"rotate(180deg)":"none",fontSize:10}}>\u25bc</span>
+          <span style={{transition:"transform .25s",transform:expanded?"rotate(180deg)":"none",fontSize:10}}>▼</span>
         </button>
         {expanded&&(
           <div style={{marginTop:8,display:"flex",flexDirection:"column",gap:2}}>
-            {p.milestones.length===0&&<p style={{fontSize:12,color:"rgba(255,255,255,.28)",padding:"10px 6px",textAlign:"center"}}>No milestones \u2014 click Edit to add some.</p>}
+            {p.milestones.length===0&&<p style={{fontSize:12,color:"rgba(255,255,255,.28)",padding:"10px 6px",textAlign:"center"}}>No milestones — click Edit to add some.</p>}
             {p.milestones.map(m=>(
               <div key={m.id} className="mrow" onClick={()=>onToggle(p.id,m.id)} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 6px",borderRadius:7,cursor:"pointer",transition:"background .15s"}}>
                 <div style={{width:16,height:16,borderRadius:4,flexShrink:0,border:m.done?"none":"1.5px solid rgba(255,255,255,.2)",background:m.done?p.color:"transparent",display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s",fontSize:9,color:"white"}}>{m.done&&"\u2713"}</div>
@@ -175,12 +175,12 @@ function EditModal({p,onSave,onClose}){
       <div style={{background:"#111827",borderRadius:20,border:"1px solid rgba(255,255,255,.1)",width:"100%",maxWidth:540,maxHeight:"90vh",overflowY:"auto",padding:30,boxShadow:"0 24px 72px rgba(0,0,0,.65)"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:24}}>
           <div><div style={{fontSize:11,color:p.color,fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",marginBottom:5}}>Editing Priority {p.num}</div><h3 style={{fontSize:17,color:"white",fontFamily:"'Fraunces',serif",fontWeight:600,lineHeight:1.3}}>{p.label}</h3></div>
-          <button onClick={onClose} style={{background:"rgba(255,255,255,.08)",border:"none",color:"rgba(255,255,255,.7)",width:32,height:32,borderRadius:8,cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center"}}>\u00d7</button>
+          <button onClick={onClose} style={{background:"rgba(255,255,255,.08)",border:"none",color:"rgba(255,255,255,.7)",width:32,height:32,borderRadius:8,cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center"}}>×</button>
         </div>
         <div style={{marginBottom:18}}><label style={lbl}>Status</label><select value={status} onChange={e=>setStatus(e.target.value)} style={{...inp}}>{Object.entries(STATUS_CFG).map(([k,v])=><option key={k} value={k}>{v.label}</option>)}</select></div>
-        <div style={{marginBottom:18}}><label style={lbl}>{p.metric.label} \u00b7 Target: {p.metric.target}{p.metric.unit}</label><input type="number" step="0.1" value={metricCurrent} onChange={e=>setMetricCurrent(e.target.value)} style={{...inp}}/></div>
+        <div style={{marginBottom:18}}><label style={lbl}>{p.metric.label} · Target: {p.metric.target}{p.metric.unit}</label><input type="number" step="0.1" value={metricCurrent} onChange={e=>setMetricCurrent(e.target.value)} style={{...inp}}/></div>
         <div style={{marginBottom:22,padding:"12px 14px",background:"rgba(255,255,255,.04)",borderRadius:10,border:"1px solid rgba(255,255,255,.07)"}}>
-          <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}><span style={{fontSize:12,color:"rgba(255,255,255,.4)"}}>Progress \u00b7 auto-calculated from milestones</span><span style={{fontSize:13,fontWeight:700,color:p.color}}>{progress}%</span></div>
+          <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}><span style={{fontSize:12,color:"rgba(255,255,255,.4)"}}>Progress · auto-calculated from milestones</span><span style={{fontSize:13,fontWeight:700,color:p.color}}>{progress}%</span></div>
           <ProgressBar progress={progress} color={p.color}/>
           <div style={{fontSize:11,color:"rgba(255,255,255,.28)",marginTop:7}}>{milestones.filter(m=>m.done).length} of {milestones.length} complete</div>
         </div>
@@ -194,16 +194,16 @@ function EditModal({p,onSave,onClose}){
                   ? <input autoFocus value={m.text} onChange={e=>updateText(m.id,e.target.value)} onBlur={()=>setEditingId(null)} onKeyDown={e=>{if(e.key==="Enter"||e.key==="Escape")setEditingId(null);}} style={{flex:1,background:"transparent",border:"none",color:"white",fontSize:13,outline:"none",padding:0}}/>
                   : <span onClick={()=>setEditingId(m.id)} title="Click to rename" style={{flex:1,fontSize:13,color:m.done?"rgba(255,255,255,.3)":"rgba(255,255,255,.8)",textDecoration:m.done?"line-through":"none",cursor:"text",lineHeight:1.4}}>{m.text||<em style={{color:"rgba(255,255,255,.25)"}}>click to add text</em>}</span>}
                 <select value={m.q} onChange={e=>updateQ(m.id,e.target.value)} style={{background:"transparent",border:"1px solid rgba(255,255,255,.1)",color:p.color,fontSize:11,fontWeight:700,borderRadius:5,padding:"2px 4px",cursor:"pointer",outline:"none",flexShrink:0}}>{QS.map(q=><option key={q} value={q}>{q}</option>)}</select>
-                <button className="del-btn" onClick={()=>deleteMilestone(m.id)} style={{background:"rgba(239,68,68,.15)",border:"none",color:"#EF4444",width:24,height:24,borderRadius:5,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>\u00d7</button>
+                <button className="del-btn" onClick={()=>deleteMilestone(m.id)} style={{background:"rgba(239,68,68,.15)",border:"none",color:"#EF4444",width:24,height:24,borderRadius:5,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>×</button>
               </div>
             ))}
           </div>
           <div style={{display:"flex",gap:7,alignItems:"center"}}>
-            <input value={newText} onChange={e=>setNewText(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"){e.preventDefault();addMilestone();}}} placeholder="New milestone \u2014 Enter to add..." style={{...inp,border:"1px dashed rgba(255,255,255,.15)",flex:1}}/>
+            <input value={newText} onChange={e=>setNewText(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"){e.preventDefault();addMilestone();}}} placeholder="New milestone — Enter to add..." style={{...inp,border:"1px dashed rgba(255,255,255,.15)",flex:1}}/>
             <select value={newQ} onChange={e=>setNewQ(e.target.value)} style={{background:"#1a2035",border:"1px solid rgba(255,255,255,.1)",color:"rgba(255,255,255,.7)",fontSize:12,fontWeight:700,borderRadius:9,padding:"9px 8px",cursor:"pointer",outline:"none",flexShrink:0}}>{QS.map(q=><option key={q} value={q}>{q}</option>)}</select>
             <button className="add-ms-btn" onClick={addMilestone} style={{background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.1)",color:"rgba(255,255,255,.7)",padding:"9px 14px",borderRadius:9,cursor:"pointer",fontSize:13,fontWeight:600,flexShrink:0,transition:"all .15s"}}>+ Add</button>
           </div>
-          <p style={{fontSize:11,color:"rgba(255,255,255,.22)",marginTop:7,paddingLeft:2}}>Click text to rename \u00b7 dropdown to reassign quarter \u00b7 hover for \u00d7</p>
+          <p style={{fontSize:11,color:"rgba(255,255,255,.22)",marginTop:7,paddingLeft:2}}>Click text to rename · dropdown to reassign quarter · hover for ×</p>
         </div>
         <div style={{marginBottom:24,marginTop:18}}><label style={lbl}>Notes & Context</label><textarea value={notes} onChange={e=>setNotes(e.target.value)} placeholder="Key wins, blockers, context..." rows={3} style={{...inp,lineHeight:1.6,resize:"vertical"}}/></div>
         <div style={{display:"flex",gap:10}}>
@@ -253,17 +253,17 @@ function UpdateView({priorities,narrative,generating,onGenerate}){
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:24}}>
         <div><h2 style={{fontSize:22,color:"white",fontFamily:"'Fraunces',serif",fontWeight:600}}>Executive Update</h2><p style={{fontSize:13,color:"rgba(255,255,255,.38)",marginTop:5}}>AI-drafted for Maurice Wilkins + Michele Bousquet (CPO)</p></div>
         <button onClick={onGenerate} disabled={generating} style={{padding:"11px 24px",background:generating?"rgba(252,76,2,.35)":"#FC4C02",border:"none",color:"white",borderRadius:10,cursor:generating?"default":"pointer",fontSize:13.5,fontWeight:700,display:"flex",alignItems:"center",gap:9,transition:"all .2s"}}>
-          {generating?<><span className="spinner">\u25cc</span> Generating...</>:"\u21bb Generate Update"}
+          {generating?<><span className="spinner">◌</span> Generating...</>:"\u21bb Generate Update"}
         </button>
       </div>
       {!narrative&&!generating&&(
         <div style={{padding:"52px 32px",borderRadius:16,border:"1.5px dashed rgba(255,255,255,.1)",textAlign:"center"}}>
-          <div style={{fontSize:28,marginBottom:14,color:"rgba(255,255,255,.15)"}}>\u25ce</div>
+          <div style={{fontSize:28,marginBottom:14,color:"rgba(255,255,255,.15)"}}>◎</div>
           <p style={{fontSize:15,color:"rgba(255,255,255,.35)"}}>Generate an AI-drafted executive status update</p>
           <p style={{fontSize:12.5,color:"rgba(255,255,255,.22)",marginTop:6}}>Pulls live from your progress, metrics & milestones across all 5 priorities</p>
         </div>
       )}
-      {generating&&<div style={{padding:"52px 32px",borderRadius:16,border:"1px solid rgba(252,76,2,.18)",background:"rgba(252,76,2,.04)",textAlign:"center"}}><div style={{fontSize:22,color:"#FC4C02",marginBottom:12,animation:"glow 1.4s ease infinite"}}>\u25c8</div><p style={{color:"rgba(255,255,255,.5)",fontSize:14}}>Drafting your executive update...</p></div>}
+      {generating&&<div style={{padding:"52px 32px",borderRadius:16,border:"1px solid rgba(252,76,2,.18)",background:"rgba(252,76,2,.04)",textAlign:"center"}}><div style={{fontSize:22,color:"#FC4C02",marginBottom:12,animation:"glow 1.4s ease infinite"}}>◈</div><p style={{color:"rgba(255,255,255,.5)",fontSize:14}}>Drafting your executive update...</p></div>}
       {narrative&&!generating&&(
         <div>
           <div style={{padding:"28px 32px",borderRadius:16,background:"#111827",border:"1px solid rgba(255,255,255,.08)",color:"rgba(255,255,255,.82)",lineHeight:1.85,fontSize:14.5,whiteSpace:"pre-line"}}>{narrative}</div>
@@ -333,7 +333,7 @@ function OneonOneView({data,setData,priorities}){
         <div style={{height:3,background:ABP.A.color}}/>
         <div style={{padding:"22px 26px"}}>
           {sectionHdr(ABP.A,data.wins.length)}
-          <p style={{fontSize:13,color:"rgba(255,255,255,.4)",marginBottom:16,lineHeight:1.5}}>Capture wins since your last check-in. Don't assume Maurice knows \u2014 make every impact visible.</p>
+          <p style={{fontSize:13,color:"rgba(255,255,255,.4)",marginBottom:16,lineHeight:1.5}}>Capture wins since your last check-in. Don't assume Maurice knows — make every impact visible.</p>
           <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:14}}>
             {data.wins.map(w=>{
               const pColor=getPriorityColor(w.priorityId);
@@ -347,10 +347,10 @@ function OneonOneView({data,setData,priorities}){
                       <div style={{display:"flex",flexWrap:"wrap",gap:6,alignItems:"center"}}>
                         <span style={{fontSize:10,color:"rgba(255,255,255,.32)"}}>{w.date}</span>
                         {pLabel&&<span style={{fontSize:11,color:pColor,background:`${pColor}20`,padding:"2px 8px",borderRadius:20,fontWeight:600}}>{pLabel}</span>}
-                        {mLabel&&<span style={{fontSize:11,color:"rgba(255,255,255,.45)",background:"rgba(255,255,255,.07)",padding:"2px 8px",borderRadius:20}}>\u21b3 {mLabel}</span>}
+                        {mLabel&&<span style={{fontSize:11,color:"rgba(255,255,255,.45)",background:"rgba(255,255,255,.07)",padding:"2px 8px",borderRadius:20}}>↳ {mLabel}</span>}
                       </div>
                     </div>
-                    <button className="abp-del" onClick={()=>deleteWin(w.id)} style={{opacity:0,background:"rgba(239,68,68,.15)",border:"none",color:"#EF4444",width:26,height:26,borderRadius:6,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"opacity .15s"}}>\u00d7</button>
+                    <button className="abp-del" onClick={()=>deleteWin(w.id)} style={{opacity:0,background:"rgba(239,68,68,.15)",border:"none",color:"#EF4444",width:26,height:26,borderRadius:6,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"opacity .15s"}}>×</button>
                   </div>
                 </div>
               );
@@ -366,14 +366,14 @@ function OneonOneView({data,setData,priorities}){
                 <div>
                   <label style={lbl}>Tied to Priority</label>
                   <select value={winForm.priorityId} onChange={e=>setWinForm(f=>({...f,priorityId:e.target.value,milestoneId:""}))} style={{...inp}}>
-                    <option value="">\u2014 Select priority \u2014</option>
-                    {priorities.map(p=><option key={p.id} value={p.id}>{p.num} \u00b7 {p.label}</option>)}
+                    <option value="">— Select priority —</option>
+                    {priorities.map(p=><option key={p.id} value={p.id}>{p.num} · {p.label}</option>)}
                   </select>
                 </div>
                 <div>
                   <label style={lbl}>Tied to Milestone</label>
                   <select value={winForm.milestoneId} onChange={e=>setWinForm(f=>({...f,milestoneId:e.target.value}))} style={{...inp}} disabled={!selectedP||selectedP.milestones.length===0}>
-                    <option value="">\u2014 Optional \u2014</option>
+                    <option value="">— Optional —</option>
                     {selectedP&&selectedP.milestones.map(m=><option key={m.id} value={m.id}>{m.q}: {m.text}</option>)}
                   </select>
                 </div>
@@ -395,7 +395,7 @@ function OneonOneView({data,setData,priorities}){
         <div style={{height:3,background:ABP.B.color}}/>
         <div style={{padding:"22px 26px"}}>
           {sectionHdr(ABP.B,data.blocks.filter(b=>!b.resolved).length)}
-          <p style={{fontSize:13,color:"rgba(255,255,255,.4)",marginBottom:16,lineHeight:1.5}}>Use the <strong style={{color:ABP.B.color,fontWeight:600}}>1\u20133\u20131 Rule</strong>: for every block, bring 1 problem, 3 possible solutions, and your 1 recommendation.</p>
+          <p style={{fontSize:13,color:"rgba(255,255,255,.4)",marginBottom:16,lineHeight:1.5}}>Use the <strong style={{color:ABP.B.color,fontWeight:600}}>1–3–1 Rule</strong>: for every block, bring 1 problem, 3 possible solutions, and your 1 recommendation.</p>
           <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:14}}>
             {data.blocks.map(b=>{
               const pLabel=getPriorityLabel(b.priorityId);
@@ -413,7 +413,7 @@ function OneonOneView({data,setData,priorities}){
                     </div>
                     <div style={{display:"flex",gap:6,flexShrink:0}}>
                       <button className="resolve-btn" onClick={()=>resolveBlock(b.id)} title={b.resolved?"Re-open":"Mark resolved"} style={{opacity:.4,background:b.resolved?"rgba(255,255,255,.08)":"rgba(16,185,129,.15)",border:"none",color:b.resolved?"rgba(255,255,255,.5)":"#10B981",padding:"4px 10px",borderRadius:6,cursor:"pointer",fontSize:11,fontWeight:600,transition:"opacity .15s"}}>{b.resolved?"Re-open":"Resolved"}</button>
-                      <button className="abp-del" onClick={()=>deleteBlock(b.id)} style={{opacity:0,background:"rgba(239,68,68,.15)",border:"none",color:"#EF4444",width:26,height:26,borderRadius:6,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",transition:"opacity .15s"}}>\u00d7</button>
+                      <button className="abp-del" onClick={()=>deleteBlock(b.id)} style={{opacity:0,background:"rgba(239,68,68,.15)",border:"none",color:"#EF4444",width:26,height:26,borderRadius:6,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",transition:"opacity .15s"}}>×</button>
                     </div>
                   </div>
                   {!b.resolved&&(
@@ -459,8 +459,8 @@ function OneonOneView({data,setData,priorities}){
               <div style={{marginBottom:16}}>
                 <label style={lbl}>Related Priority (optional)</label>
                 <select value={blockForm.priorityId} onChange={e=>setBlockForm(f=>({...f,priorityId:e.target.value}))} style={{...inp}}>
-                  <option value="">\u2014 Select priority \u2014</option>
-                  {priorities.map(p=><option key={p.id} value={p.id}>{p.num} \u00b7 {p.label}</option>)}
+                  <option value="">— Select priority —</option>
+                  {priorities.map(p=><option key={p.id} value={p.id}>{p.num} · {p.label}</option>)}
                 </select>
               </div>
               <div style={{display:"flex",gap:10}}>
@@ -470,7 +470,7 @@ function OneonOneView({data,setData,priorities}){
             </div>
           ):(
             <button onClick={()=>setShowBlockForm(true)} style={{width:"100%",padding:"11px",background:"rgba(255,255,255,.04)",border:`1px dashed ${ABP.B.color}60`,borderRadius:10,color:ABP.B.color,cursor:"pointer",fontSize:13,fontWeight:600,transition:"all .2s"}} onMouseEnter={e=>e.currentTarget.style.background=ABP.B.light} onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,.04)"}>
-              + Add a Block (1\u20133\u20131)
+              + Add a Block (1–3–1)
             </button>
           )}
         </div>
@@ -487,15 +487,15 @@ function OneonOneView({data,setData,priorities}){
                 <span style={{fontSize:13,fontWeight:700,color:ABP.P.color,width:22,textAlign:"center",flexShrink:0,fontFamily:"'Fraunces',serif"}}>{i+1}</span>
                 <span style={{flex:1,fontSize:14,color:"rgba(255,255,255,.85)",lineHeight:1.4}}>{p.text}</span>
                 <div style={{display:"flex",gap:4,flexShrink:0}}>
-                  <button onClick={()=>moveWeekPri(p.id,-1)} disabled={i===0} style={{background:"rgba(255,255,255,.06)",border:"none",color:i===0?"rgba(255,255,255,.15)":"rgba(255,255,255,.5)",width:24,height:24,borderRadius:5,cursor:i===0?"default":"pointer",fontSize:11,display:"flex",alignItems:"center",justifyContent:"center"}}>\u25b2</button>
-                  <button onClick={()=>moveWeekPri(p.id,1)} disabled={i===data.weekPriorities.length-1} style={{background:"rgba(255,255,255,.06)",border:"none",color:i===data.weekPriorities.length-1?"rgba(255,255,255,.15)":"rgba(255,255,255,.5)",width:24,height:24,borderRadius:5,cursor:i===data.weekPriorities.length-1?"default":"pointer",fontSize:11,display:"flex",alignItems:"center",justifyContent:"center"}}>\u25bc</button>
-                  <button className="abp-del" onClick={()=>deleteWeekPri(p.id)} style={{opacity:0,background:"rgba(239,68,68,.15)",border:"none",color:"#EF4444",width:24,height:24,borderRadius:5,cursor:"pointer",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",transition:"opacity .15s"}}>\u00d7</button>
+                  <button onClick={()=>moveWeekPri(p.id,-1)} disabled={i===0} style={{background:"rgba(255,255,255,.06)",border:"none",color:i===0?"rgba(255,255,255,.15)":"rgba(255,255,255,.5)",width:24,height:24,borderRadius:5,cursor:i===0?"default":"pointer",fontSize:11,display:"flex",alignItems:"center",justifyContent:"center"}}>▲</button>
+                  <button onClick={()=>moveWeekPri(p.id,1)} disabled={i===data.weekPriorities.length-1} style={{background:"rgba(255,255,255,.06)",border:"none",color:i===data.weekPriorities.length-1?"rgba(255,255,255,.15)":"rgba(255,255,255,.5)",width:24,height:24,borderRadius:5,cursor:i===data.weekPriorities.length-1?"default":"pointer",fontSize:11,display:"flex",alignItems:"center",justifyContent:"center"}}>▼</button>
+                  <button className="abp-del" onClick={()=>deleteWeekPri(p.id)} style={{opacity:0,background:"rgba(239,68,68,.15)",border:"none",color:"#EF4444",width:24,height:24,borderRadius:5,cursor:"pointer",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",transition:"opacity .15s"}}>×</button>
                 </div>
               </div>
             ))}
           </div>
           <div style={{display:"flex",gap:8}}>
-            <input value={newPriText} onChange={e=>setNewPriText(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"){e.preventDefault();addWeekPri();}}} placeholder="Add a priority item \u2014 Enter to add..." style={{...inp,flex:1,border:`1px dashed ${ABP.P.color}60`}}/>
+            <input value={newPriText} onChange={e=>setNewPriText(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"){e.preventDefault();addWeekPri();}}} placeholder="Add a priority item — Enter to add..." style={{...inp,flex:1,border:`1px dashed ${ABP.P.color}60`}}/>
             <button onClick={addWeekPri} style={{background:ABP.P.color,border:"none",color:"white",padding:"9px 18px",borderRadius:8,cursor:"pointer",fontSize:13,fontWeight:700,flexShrink:0}}>+ Add</button>
           </div>
         </div>
@@ -505,16 +505,16 @@ function OneonOneView({data,setData,priorities}){
 }
 
 function downloadSummary(priorities, data){
-  const getPL=(pid)=>{ const p=priorities.find(p=>String(p.id)===String(pid)); return p?`${p.num} \u00b7 ${p.label}`:null; };
+  const getPL=(pid)=>{ const p=priorities.find(p=>String(p.id)===String(pid)); return p?`${p.num} · ${p.label}`:null; };
   const getML=(pid,mid)=>{ const p=priorities.find(p=>String(p.id)===String(pid)); if(!p)return null; const m=p.milestones.find(m=>m.id===mid); return m?m.text:null; };
   const activeBlocks=data.blocks.filter(b=>!b.resolved);
   const lines=[
-    `WEEKLY CHECK-IN PREP \u2014 ABP SUMMARY`,
-    `David Brown-Dawson \u2192 Maurice Wilkins`,
+    `WEEKLY CHECK-IN PREP — ABP SUMMARY`,
+    `David Brown-Dawson → Maurice Wilkins`,
     `Week of ${weekStr()}`,
     `${"─".repeat(52)}`,
     ``,
-    `A \u2014 ACCOMPLISHED`,
+    `A — ACCOMPLISHED`,
     ``,
     data.wins.length===0?"  (No wins logged this week)"
       :data.wins.map((w,i)=>{
@@ -529,7 +529,7 @@ function downloadSummary(priorities, data){
     ``,
     `${"─".repeat(52)}`,
     ``,
-    `B \u2014 BLOCKS  (1\u20133\u20131 Rule)`,
+    `B — BLOCKS  (1–3–1 Rule)`,
     ``,
     activeBlocks.length===0?"  (No active blocks)"
       :activeBlocks.map((b,i)=>{
@@ -540,13 +540,13 @@ function downloadSummary(priorities, data){
           ``,
           `  Solutions considered:`,
           ...b.solutions.map((s,j)=>s.trim()?`    ${j+1}. ${s}`:"").filter(Boolean),
-          b.recommendation?`\n  \u2192 My recommendation: ${b.recommendation}`:"",
+          b.recommendation?`\n  → My recommendation: ${b.recommendation}`:"",
         ].filter(l=>l!==undefined).join("\n");
       }).join("\n\n"),
     ``,
     `${"─".repeat(52)}`,
     ``,
-    `P \u2014 PRIORITIES  (my prioritized workflow \u2014 please confirm or adjust)`,
+    `P — PRIORITIES  (my prioritized workflow — please confirm or adjust)`,
     ``,
     data.weekPriorities.length===0?"  (No priorities listed)"
       :data.weekPriorities.map((p,i)=>`  ${i+1}. ${p.text}`).join("\n"),
@@ -596,7 +596,7 @@ export default function Dashboard(){
 
   const generateUpdate=async()=>{
     setGenerating(true);setView("update");setNarrative("");
-    const summary=priorities.map(p=>{ const done=p.milestones.filter(m=>m.done).map(m=>m.text); const next=p.milestones.find(m=>!m.done); return `Priority ${p.num} \u2014 ${p.label}\nStatus: ${STATUS_CFG[p.status].label} | Progress: ${p.progress}%\n${p.metric.label}: ${p.metric.current}${p.metric.unit} (target: ${p.metric.target}${p.metric.unit})\nCompleted: ${done.length?done.join("; "):"None yet"}\nNext: ${next?`${next.text} (${next.q})`:"All complete"}\n${p.notes?`Notes: ${p.notes}`:""}`;}).join("\n\n");
+    const summary=priorities.map(p=>{ const done=p.milestones.filter(m=>m.done).map(m=>m.text); const next=p.milestones.find(m=>!m.done); return `Priority ${p.num} — ${p.label}\nStatus: ${STATUS_CFG[p.status].label} | Progress: ${p.progress}%\n${p.metric.label}: ${p.metric.current}${p.metric.unit} (target: ${p.metric.target}${p.metric.unit})\nCompleted: ${done.length?done.join("; "):"None yet"}\nNext: ${next?`${next.text} (${next.q})`:"All complete"}\n${p.notes?`Notes: ${p.notes}`:""}`;}).join("\n\n");
     try{
       const r=await fetch("https://api.anthropic.com/v1/messages",{
         method:"POST",
@@ -606,7 +606,7 @@ export default function Dashboard(){
           "anthropic-version":"2023-06-01",
           "anthropic-dangerous-direct-browser-access":"true"
         },
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:`You are writing on behalf of David Brown-Dawson, Senior People Programs & Development Manager at Strava.\n\nGenerate a confident, concise executive status update to share with Maurice Wilkins (direct manager) and Michele Bousquet (Chief People Officer), covering progress on Maurice's Top 5 Priorities for 2026.\n\nPriority data:\n${summary}\n\nFormat:\n- One compelling opening sentence on overall momentum\n- A paragraph per priority (2-3 sentences): status, wins, what's next\n- One closing sentence signaling ownership and forward momentum\n\nTone: Direct, confident, energetic. Sound like a high-performer who owns outcomes. Active voice. Flowing paragraphs \u2014 no bullet points. ~280 words.`}]})
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:`You are writing on behalf of David Brown-Dawson, Senior People Programs & Development Manager at Strava.\n\nGenerate a confident, concise executive status update to share with Maurice Wilkins (direct manager) and Michele Bousquet (Chief People Officer), covering progress on Maurice's Top 5 Priorities for 2026.\n\nPriority data:\n${summary}\n\nFormat:\n- One compelling opening sentence on overall momentum\n- A paragraph per priority (2-3 sentences): status, wins, what's next\n- One closing sentence signaling ownership and forward momentum\n\nTone: Direct, confident, energetic. Sound like a high-performer who owns outcomes. Active voice. Flowing paragraphs — no bullet points. ~280 words.`}]})
       });
       const d=await r.json(); setNarrative(d.content?.map(c=>c.text||"").join("")||"Unable to generate.");
     }catch{ setNarrative("Error generating update. Please try again."); }
@@ -621,7 +621,7 @@ export default function Dashboard(){
 
   const TABS=[
     {id:"overview",label:"Overview"},
-    {id:"timeline",label:"Q1\u2013Q4 Roadmap"},
+    {id:"timeline",label:"Q1–Q4 Roadmap"},
     {id:"11",label:`\u2726 1:1 Prep${activeBlocks>0?` (${activeBlocks} blocks)`:""}`},
     {id:"update",label:"Generate Update"},
   ];
@@ -633,10 +633,10 @@ export default function Dashboard(){
           <div>
             <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
               <div style={{width:28,height:28,background:"#FC4C02",borderRadius:6,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,fontWeight:700,color:"white",flexShrink:0}}>S</div>
-              <span style={{fontSize:12,color:"rgba(255,255,255,.4)",letterSpacing:".08em",textTransform:"uppercase"}}>Strava \u00b7 People &amp; Development</span>
+              <span style={{fontSize:12,color:"rgba(255,255,255,.4)",letterSpacing:".08em",textTransform:"uppercase"}}>Strava · People &amp; Development</span>
             </div>
-            <h1 style={{fontSize:28,fontWeight:700,fontFamily:"'Fraunces',serif",letterSpacing:"-.02em"}}>David's Top 5 <span style={{color:"#FC4C02"}}>\u00b7 2026</span></h1>
-            <p style={{fontSize:13,color:"rgba(255,255,255,.38)",marginTop:4}}>David Brown-Dawson \u00b7 Maurice Wilkins \u2192 Michele Bousquet, CPO</p>
+            <h1 style={{fontSize:28,fontWeight:700,fontFamily:"'Fraunces',serif",letterSpacing:"-.02em"}}>David's Top 5 <span style={{color:"#FC4C02"}}>· 2026</span></h1>
+            <p style={{fontSize:13,color:"rgba(255,255,255,.38)",marginTop:4}}>David Brown-Dawson · Maurice Wilkins → Michele Bousquet, CPO</p>
           </div>
           <div style={{display:"flex",gap:28,alignItems:"flex-start",flexWrap:"wrap"}}>
             {[
@@ -651,7 +651,7 @@ export default function Dashboard(){
               </div>
             ))}
             <button onClick={()=>downloadSummary(priorities,oneOnOne)} title="Download weekly ABP summary" style={{background:"rgba(255,255,255,.07)",border:"1px solid rgba(255,255,255,.12)",color:"rgba(255,255,255,.6)",padding:"8px 16px",borderRadius:8,cursor:"pointer",fontSize:12,fontWeight:600,display:"flex",alignItems:"center",gap:7,transition:"all .2s",alignSelf:"center"}} onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,.12)"} onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,.07)"}>
-              \u2193 Download ABP Summary
+              ↓ Download ABP Summary
             </button>
           </div>
         </div>
