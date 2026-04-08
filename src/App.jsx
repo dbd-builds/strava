@@ -635,7 +635,7 @@ export default function Dashboard(){
               <div style={{width:28,height:28,background:"#FC4C02",borderRadius:6,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,fontWeight:700,color:"white",flexShrink:0}}>S</div>
               <span style={{fontSize:12,color:"rgba(255,255,255,.4)",letterSpacing:".08em",textTransform:"uppercase"}}>Strava \u00b7 People &amp; Development</span>
             </div>
-            <h1 style={{fontSize:28,fontWeight:700,fontFamily:"'Fraunces',serif",letterSpacing:"-.02em"}}>Maurice's Top 5 <span style={{color:"#FC4C02"}}>\u00b7 2026</span></h1>
+            <h1 style={{fontSize:28,fontWeight:700,fontFamily:"'Fraunces',serif",letterSpacing:"-.02em"}}>David's Top 5 <span style={{color:"#FC4C02"}}>\u00b7 2026</span></h1>
             <p style={{fontSize:13,color:"rgba(255,255,255,.38)",marginTop:4}}>David Brown-Dawson \u00b7 Maurice Wilkins \u2192 Michele Bousquet, CPO</p>
           </div>
           <div style={{display:"flex",gap:28,alignItems:"flex-start",flexWrap:"wrap"}}>
